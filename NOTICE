@@ -1,0 +1,28 @@
+# NOTICE
+
+This repository contains configuration files, shell/Python scripts and
+documentation only. It does not redistribute model weights, container images,
+patches to vLLM, or any other third-party binary.
+
+Third-party components referenced by this work:
+
+- eugr/spark-vllm-docker (recipe runner, container build, cluster discovery)
+  https://github.com/eugr/spark-vllm-docker
+  Used as a dependency; no source from that repository is copied here.
+
+- vLLM (Apache-2.0)
+  https://github.com/vllm-project/vllm
+
+- nvidia/GLM-5.3-Flash-FP4-Local (model weights, not included)
+  https://huggingface.co/nvidia/GLM-5.3-Flash-FP4-Local
+  Governed by the license on its model card.
+
+- incoai/GLM-5.3-Flash-DFlash2 (drafter weights, not included)
+  https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2
+  Governed by the license on its model card.
+
+- DGX Spark / GB10 hardware and NVIDIA software stack are subject to NVIDIA's
+  own terms.
+
+The MIT license in LICENSE applies only to the files authored in this
+repository.

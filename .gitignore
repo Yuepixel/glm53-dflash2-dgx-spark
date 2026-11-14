@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Local config, logs and measurement dumps
+.env
+*.log
+bench/dumps/
+config.local.*
+
+# Model weights / caches (large, license-bound)
+models/
+hf-cache/
+*.safetensors
+*.bin
+*.gguf
+
+# OS
+.DS_Store
+Thumbs.db
