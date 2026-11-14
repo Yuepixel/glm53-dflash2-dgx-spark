@@ -8,6 +8,10 @@
 | `bench-code-decode.py` | Concurrency sweep over fixed code prompts (the reproducible tables) |
 | `bench-decode.py` | Same harness, single prose prompt |
 | `probe-decode.py` | One request; prints TTFT and decode tok/s (post-restart smoke test) |
+| `bench-corpus.py` | 9-prompt code corpus; wall-clock tok/s + acceptance length from `/metrics` |
+
+Panel benchmark (structured / json / code / prose, decode-window metric) lives in
+[../bench/panel/](../bench/panel/README.md).
 
 Typical run:
 

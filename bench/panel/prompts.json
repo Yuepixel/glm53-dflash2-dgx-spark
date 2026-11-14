@@ -1,0 +1,151 @@
+{
+  "_source": "github.com/miaai-lab/sparkdash - src/shared/llmPrompts.js",
+  "_license": "Apache-2.0 (see LICENSES/Apache-2.0.txt and NOTICE); prompt strings copied verbatim",
+  "_note": "Decode-bench prompt catalog. 'code_tasks' are joined as name + newline + spec + newline + code_tail.",
+  "method": {
+    "transport": "streaming SSE",
+    "temperature": 0.7,
+    "top_p": 1,
+    "max_tokens": 400,
+    "thinking": true,
+    "warmup_tokens": 32,
+    "measurement": "decode window only: (completion_tokens-1)/(last_delta-first_delta); aggregate = sum(decode tokens)/concurrent decode window",
+    "multi_stream_prefix": "Request ID: decode-<N>"
+  },
+  "prompts": {
+    "structured": "Count from 1 to 200. Output only the numbers, separated by spaces. No other text.",
+    "prose": "Write a detailed step-by-step explanation of how a hash map works, including collision handling, resizing, and time complexity. Be thorough.",
+    "json": "Emit only a JSON array of fake GPU metrics rows. Each object needs host, gpuIndex, utilPct, tempC, powerW, memUsedMb. Invent many rows. No markdown. Keep expanding the array.",
+    "code_tail": "Output only Python source. No comments, no docstrings, no markdown fences. Then add tests and the helpers this needs. Keep writing code.",
+    "code_tasks": [
+      {
+        "name": "binary_search",
+        "spec": "def binary_search(nums, target) -> int: index of target in a sorted list, or -1."
+      },
+      {
+        "name": "merge_sort",
+        "spec": "def merge_sort(nums) -> list: stable sort of a list of ints, returning a new list."
+      },
+      {
+        "name": "lru_cache",
+        "spec": "class LRUCache: get(key) and put(key, value) with a fixed capacity, evicting the least recently used."
+      },
+      {
+        "name": "token_bucket",
+        "spec": "class TokenBucket: allow(n) consumes n tokens refilled at a fixed rate, else returns False."
+      },
+      {
+        "name": "ring_buffer",
+        "spec": "class RingBuffer: push and pop over a fixed-capacity array, raising on overflow and underflow."
+      },
+      {
+        "name": "dijkstra",
+        "spec": "def dijkstra(graph, src) -> dict: shortest path weights from src on a non-negative weighted graph."
+      },
+      {
+        "name": "edit_distance",
+        "spec": "def edit_distance(a, b) -> int: Levenshtein distance between two strings."
+      },
+      {
+        "name": "semver_cmp",
+        "spec": "def semver_cmp(a, b) -> int: compare dotted numeric versions, negative if a < b."
+      },
+      {
+        "name": "url_parse",
+        "spec": "def url_parse(url) -> dict: scheme, host, port, path, and query pairs. No extra libraries."
+      },
+      {
+        "name": "json_pointer",
+        "spec": "def json_pointer(doc, pointer) -> object: follow an RFC 6901 pointer, or None if missing."
+      },
+      {
+        "name": "glob_match",
+        "spec": "def glob_match(pattern, text) -> bool: * and ? wildcards, no character classes."
+      },
+      {
+        "name": "csv_parse",
+        "spec": "def csv_parse(text) -> list: rows of fields, honoring double-quoted commas and escaped quotes."
+      },
+      {
+        "name": "rle",
+        "spec": "def rle_encode(s) -> str and rle_decode(s) -> str: run-length encoding of single-byte runs."
+      },
+      {
+        "name": "top_k",
+        "spec": "def top_k(nums, k) -> list: the k largest ints, unordered, using a bounded heap."
+      },
+      {
+        "name": "interval_merge",
+        "spec": "def merge_intervals(spans) -> list: merge overlapping [start, end] pairs."
+      },
+      {
+        "name": "topo_sort",
+        "spec": "def topo_sort(nodes, edges) -> list: a valid order, or None if the graph has a cycle."
+      },
+      {
+        "name": "bloom_filter",
+        "spec": "class BloomFilter: add(item) and might_contain(item) with two hash functions over a bit array."
+      },
+      {
+        "name": "moving_average",
+        "spec": "class MovingAverage: next(x) returns the mean of the last window values."
+      },
+      {
+        "name": "retry_backoff",
+        "spec": "def backoff_delays(attempts, base_ms, cap_ms) -> list: exponential delays clipped at the cap."
+      },
+      {
+        "name": "base64_encode",
+        "spec": "def b64_encode(data) -> str and b64_decode(text) -> bytes: standard base64, no libraries."
+      },
+      {
+        "name": "expr_eval",
+        "spec": "def eval_expr(text) -> int: evaluate non-negative ints with + - * / and parentheses."
+      },
+      {
+        "name": "histogram_percentile",
+        "spec": "def percentile(samples, p) -> float: nearest-rank percentile of a list of numbers."
+      },
+      {
+        "name": "redact_secrets",
+        "spec": "def redact(text) -> str: replace AWS-looking keys and password= values with ***. Keep the rest."
+      },
+      {
+        "name": "chunk_text",
+        "spec": "def chunk_text(text, size) -> list: split into chunks of at most size chars, breaking on spaces when possible."
+      },
+      {
+        "name": "route_match",
+        "spec": "def route_match(pattern, path) -> dict or None: /users/:id style params."
+      },
+      {
+        "name": "crc32",
+        "spec": "def crc32(data) -> int: IEEE CRC-32 of a bytes object."
+      },
+      {
+        "name": "fixed_window",
+        "spec": "class FixedWindow: allow() is True up to limit events per window_s, else False."
+      },
+      {
+        "name": "diff_lines",
+        "spec": "def diff_lines(a, b) -> list: line diff as equal/delete/insert ops using a simple LCS."
+      },
+      {
+        "name": "infix_postfix",
+        "spec": "def infix_to_postfix(tokens) -> list: shunting-yard for + - * / and parentheses."
+      },
+      {
+        "name": "consistent_hash",
+        "spec": "class ConsistentHash: add_node, remove_node, and get_node(key) on a ring of virtual nodes."
+      },
+      {
+        "name": "utf8_decode",
+        "spec": "def utf8_decode(data) -> str: decode UTF-8 bytes, replacing invalid sequences with U+FFFD."
+      },
+      {
+        "name": "dependency_closure",
+        "spec": "def closure(root, deps) -> list: packages reachable from root, each name once, in visit order."
+      }
+    ]
+  }
+}

@@ -3,6 +3,8 @@
 在 **2 台 DGX Spark（GB10 / sm_121a）** 上用 **vLLM B12X** 栈跑 **GLM-5.3-Flash-FP4**，并挂上
 **DFlash2 投机解码器（K=7）** 的完整可用配方、实测数据与踩坑记录。
 
+[English README](README.md) · [English docs](docs/en/README.md)
+
 - **vLLM 源码零改动**：一份 recipe + 三个运行期开关，全部是公开参数。
 - **不吹 2×**：高可预测内容 1.5–1.7×，通用 code 约 1.05×（9 条真实提示词），散文在高并发下反而更慢；
   两机 2× 在物理上不可达（带宽账见 [docs/performance.md](docs/performance.md)）。
@@ -139,14 +141,18 @@ AL_dflash / (7+1) > AL_mtp / (3+1)      ⇔      AL_dflash > 2 × AL_mtp
 ```
 recipes/   可直接放进 eugr/spark-vllm-docker 的配方（DFlash2 K=7 与 MTP K=3 基线）
 scripts/   serve / stop / health 包装、压测脚本、接受长度探针
+bench/     测量表格（CSV）+ bench/panel/（可复现的四类负载面板）
 docs/      复现步骤、坑、性能、测量方法、相关工作
-bench/     测量表格（CSV）与轮次记录
+docs/en/   以上文档的英文版
+tools/     仓库自检（相对链接检查，CI 用）
+LICENSES/  第三方许可证文本（bench/panel/prompts.json 为 Apache-2.0）
 ```
 
 ## 复现边界（先说清楚）
 
-- code 那几张表可以用仓库里的脚本原样复现；「Structured / JSON / Prose」面板数据来自非公开提示词集，
-  **无法**凭本仓库复现，只作为背景信息列出。
+- code 那几张表可以用仓库里的脚本原样复现；「Structured / JSON / Code / Prose」面板数据用
+  `bench/panel/run-panel.py` 也能原样复现（同提示词、同预热）。
+- 面板测的是 **decode 窗口**（不含 prefill/TTFT），数字比同引擎的墙钟口径高，两张表别混比。
 - temperature 0 在这套栈上**不保证逐字一致**：FP4 MoE 路由 + bf16 批形状会让基线自己跟自己对不上。
   要比就比语义和单元测试，别比逐字 diff。
 - 你的接受长度主要由你的提示词决定，其次才是这份配置。

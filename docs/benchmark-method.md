@@ -11,9 +11,10 @@
 | 口径 | 参数 | 用于 |
 |---|---|---|
 | code harness | 400 tok、thinking off、temp 0、c1/2/4/8、每档 3 次取中位 | 主表、可复现 |
-| 内部面板 | 400 tok、thinking on、temp 0.7、c1–c6、c8、固定提示词集 | 结构化/JSON/散文表（背景） |
+| 面板口径 | 400 tok、thinking on、temp 0.7、c1–c6、c8、32-token 预热、decode 窗口 | 结构化/JSON/散文表（`bench/panel/` 可复现） |
 
-两个口径不混比。面板数字是「我们自己的 agent 流量形态」，不是通用基准。
+两个口径不混比：面板掐掉 prefill/TTFT，只算 decode 窗口，数字天然更高。面板的提示词、预热和
+计数方式见 `bench/panel/README.md`，可以逐项复现。
 
 ## 2. 吞吐怎么算
 
@@ -32,8 +33,8 @@
 vLLM 的 spec-decode 计数器（Prometheus `/metrics`）：
 
 ```
+vllm:spec_decode_num_drafts_total
 vllm:spec_decode_num_accepted_tokens_total
-vllm:spec_decode_num_draft_tokens_total
 vllm:spec_decode_num_emitted_tokens_total
 ```
 

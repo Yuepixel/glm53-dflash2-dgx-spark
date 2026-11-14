@@ -21,6 +21,13 @@ Third-party components referenced by this work:
   https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2
   Governed by the license on its model card.
 
+- sparkDash (Apache-2.0)
+  https://github.com/miaai-lab/sparkdash
+  The prompt strings in bench/panel/prompts.json are copied verbatim from its
+  decode-bench prompt catalog (src/shared/llmPrompts.js). A copy of the
+  Apache-2.0 license is included in LICENSES/Apache-2.0.txt. No other source
+  from that project is used.
+
 - DGX Spark / GB10 hardware and NVIDIA software stack are subject to NVIDIA's
   own terms.
 

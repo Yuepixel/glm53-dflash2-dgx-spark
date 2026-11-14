@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install lint dependencies
+        run: python -m pip install --quiet pyyaml
+
+      - name: Python syntax
+        run: python -m py_compile $(git ls-files "*.py")
+
+      - name: YAML syntax (recipes)
+        run: |
+          python - <<'PY'
+          import subprocess
+          import yaml
+
+          files = subprocess.check_output(["git", "ls-files", "*.yaml"]).decode().split()
+          for path in files:
+              with open(path, encoding="utf-8") as fh:
+                  yaml.safe_load(fh)
+          print("yaml ok: %d files" % len(files))
+          PY
+
+      - name: JSON syntax (panel prompts)
+        run: python -m json.tool bench/panel/prompts.json > /dev/null
+
+      - name: Shell syntax
+        run: |
+          for f in $(git ls-files "*.sh"); do
+            bash -n "$f"
+          done
+
+      - name: Relative Markdown links
+        run: python tools/check_links.py

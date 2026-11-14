@@ -10,7 +10,7 @@ serving **GLM-5.3-Flash-FP4** on a **dual DGX Spark (GB10)** cluster.
 - Everything was measured on real hardware on 2026-11-14. The benchmark scripts are in [scripts/](scripts)
   so you can reproduce the code-load tables yourself.
 
-[中文说明 / Chinese README](README.zh-CN.md)
+[中文说明 / Chinese README](README.zh-CN.md) · [English docs](docs/en/README.md)
 
 ## What this repo gives you
 
@@ -149,15 +149,19 @@ Details, log excerpts and source-code anchors: [docs/pitfalls.md](docs/pitfalls.
 ```
 recipes/    drop-in recipes for eugr/spark-vllm-docker (DFlash2 K=7 and MTP K=3 baseline)
 scripts/    serve / stop / health wrappers, benchmark and acceptance-length probes
+bench/      measurement tables (CSV) + bench/panel/ (reproducible four-load panel)
 docs/       reproduction, pitfalls, performance, benchmark methodology, related work
-bench/      measurement tables (CSV) and the round-by-round log
+docs/en/    English versions of the above
+tools/      repo checks (relative-link checker, used by CI)
+LICENSES/   third-party license texts (Apache-2.0 for bench/panel/prompts.json)
 ```
 
 ## Reproducibility notes
 
-- The code tables are reproducible with the included scripts. The "structured/JSON/prose" panel numbers
-  come from a private prompt set and are **not** reproducible from this repo; they are reported for
-  context only.
+- The code tables are reproducible with the included scripts. The structured/JSON/code/prose panel
+  numbers are reproducible with `bench/panel/run-panel.py` (same prompts, same warmup).
+- Panel numbers measure the **decode window only** (no prefill/TTFT), so they are higher than the
+  wall-clock numbers for the same engine. Do not mix the two tables.
 - Temperature 0 is **not** bitwise reproducible on this stack: FP4 MoE routing + bf16 batch shapes make
   even the baseline disagree with itself across runs. Compare semantics, not token-by-token diffs.
 - Your acceptance length depends on your prompts more than on anything else in this repo.
